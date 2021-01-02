@@ -33,55 +33,55 @@ function addEmployee() {
         message: "Enter the employee's email address",
         name: "email",
         default: "email@email.com"
-    }])
-        .then(function ({name, id, role, email}) {
-            let roleInfo = "";
-            if (role === "Engineer") {
-                roleInfo = "GitHub username:";
-            } else if (role === "Intern") {
-                roleInfo = "school name:";
-            } else {
-                roleInfo = "office phone number:";
-            }
-            inquirer.prompt([{
-                message: `Enter the team member's ${roleInfo}`,
-                name: "roleInfo"
-            },
-            {
-                type: "confirm",
-                message: "Would you like to add more employees?",
-                name: "moreEmployees"
-            }])
-                .then(function ({ roleInfo, moreEmployees}) {
-                    let newEmployee;
-                    if (role === "Engineer") {
-                        newEmployee = new Engineer(name, id, email, roleInfo);
+
+    }]).then(function ({ name, id, role, email }) {
+        let roleInfo = "";
+        if (role === "Engineer") {
+            roleInfo = "GitHub username:";
+        } else if (role === "Intern") {
+            roleInfo = "school name:";
+        } else {
+            roleInfo = "office phone number:";
+        }
+        inquirer.prompt([{
+            message: `Enter the team member's ${roleInfo}`,
+            name: "roleInfo"
+        },
+        {
+            type: "confirm",
+            message: "Would you like to add more employees?",
+            name: "moreEmployees"
+        }])
+            .then(function ({ roleInfo, moreEmployees }) {
+                let newEmployee;
+                if (role === "Engineer") {
+                    newEmployee = new Engineer(name, id, email, roleInfo);
 
 
-                    } else if (role === "Intern") {
-                        newEmployee = new Intern(name, id, email, roleInfo);
+                } else if (role === "Intern") {
+                    newEmployee = new Intern(name, id, email, roleInfo);
 
-                    } else {
-                        newEmployee = new Manager(name, id, email, roleInfo);
-                    }
+                } else {
+                    newEmployee = new Manager(name, id, email, roleInfo);
+                }
 
-                    team.push(newEmployee);
-        
-                    if (moreEmployees) {
-                        addEmployee();
+                team.push(newEmployee);
 
-                    } else {
-                        renderHtml();
-                    }
-                });
+                if (moreEmployees) {
+                    addEmployee();
 
-        });
+                } else {
+                    renderHtml();
+                }
+            });
+
+    });
 };
 
 
 function renderHtml() {
     const newHtml = render(team);
-    if (!fs.existsSync(OUTPUT_DIR)){
+    if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR)
     }
     fs.writeFile(outputPath, newHtml, function (err) {
