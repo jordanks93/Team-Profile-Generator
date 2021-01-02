@@ -10,8 +10,10 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+// array to store team object for render html
 const team = [];
 
+//prompt user for employee info
 function addEmployee() {
     inquirer.prompt([{
         message: "Enter the employees name:",
@@ -34,6 +36,7 @@ function addEmployee() {
         name: "email",
         default: "email@email.com"
 
+        // additonal prompt depending on the employee's role
     }]).then(function ({ name, id, role, email }) {
         let roleInfo = "";
         if (role === "Engineer") {
@@ -51,8 +54,9 @@ function addEmployee() {
             type: "confirm",
             message: "Would you like to add more employees?",
             name: "moreEmployees"
-        }])
-            .then(function ({ roleInfo, moreEmployees }) {
+
+            // create new employee objects and add to team array
+        }]).then(function ({ roleInfo, moreEmployees }) {
                 let newEmployee;
                 if (role === "Engineer") {
                     newEmployee = new Engineer(name, id, email, roleInfo);
@@ -78,7 +82,7 @@ function addEmployee() {
     });
 };
 
-
+// write to html with team object info
 function renderHtml() {
     const newHtml = render(team);
     if (!fs.existsSync(OUTPUT_DIR)) {
