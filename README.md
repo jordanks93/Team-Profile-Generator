@@ -13,7 +13,7 @@
   * [License](#license)
 
   ## Visual
-    [Example HTML](Assets/ExampleHtml.jpg)
+     ![Walkthrough](Assets/Demo.gif)
    
   ## Installation
   1.) Clone the repo from github 2.) Pull up the project in your file directory 3.) Type "npm i" into the console to install the required modules 4.) Type "node app.js" to run the program 5.) Follow the prompts until team.html is generated in the output folder.
