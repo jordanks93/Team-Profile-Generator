@@ -82,7 +82,7 @@ const createTeam = () => {
 };
 
 // write to html with team object info
-function renderHtml() {
+const renderHtml = () => {
     const newHtml = render(team);
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR);
@@ -90,6 +90,8 @@ function renderHtml() {
     fs.writeFile(outputPath, newHtml, (err) => {
         if (err) {
             throw(err);
+        } else {
+            console.log("team.html was created. (Look in the output folder)");
         }
     });
 };
