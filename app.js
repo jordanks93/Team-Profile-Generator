@@ -68,11 +68,14 @@ const createTeam = () => {
                     newEmployee = new Manager(name, id, email, roleInfo);
                 }
 
+                // add new emloyee to array
                 team.push(newEmployee);
 
+                // if user wants to add more employees, user will be prompted for employee info more
                 if (moreEmployees) {
                     createTeam();
-
+                
+                // if user is done, html render function will execute
                 } else {
                     renderHtml();
                 }
@@ -83,10 +86,13 @@ const createTeam = () => {
 
 // write to html with team object info
 const renderHtml = () => {
-    const newHtml = render(team);
+    let newHtml = render(team);
+
+    // check if out folder exists and creates one if not
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR);
     }
+    // write html file
     fs.writeFile(outputPath, newHtml, (err) => {
         if (err) {
             throw(err);
@@ -96,8 +102,10 @@ const renderHtml = () => {
     });
 };
 
+
 function init() {
     createTeam();
 }
 
+// run code
 init();
