@@ -14,9 +14,9 @@ const render = require("./lib/htmlRenderer");
 const team = [];
 
 //prompt user for employee info
-function addEmployee() {
+const createTeam = () => {
     inquirer.prompt([{
-        message: "Enter the employees name:",
+        message: "Enter the employee's name:",
         name: "name",
         default: "FirstName LastName"
     },
@@ -37,7 +37,7 @@ function addEmployee() {
         default: "email@email.com"
 
         // additonal prompt depending on the employee's role
-    }]).then(function ({ name, id, role, email }) {
+    }]).then(({ name, id, role, email }) => {
         let roleInfo = "";
         if (role === "Engineer") {
             roleInfo = "GitHub username:";
@@ -56,11 +56,10 @@ function addEmployee() {
             name: "moreEmployees"
 
             // create new employee objects and add to team array
-        }]).then(function ({ roleInfo, moreEmployees }) {
+        }]).then(({ roleInfo, moreEmployees }) => {
                 let newEmployee;
                 if (role === "Engineer") {
                     newEmployee = new Engineer(name, id, email, roleInfo);
-
 
                 } else if (role === "Intern") {
                     newEmployee = new Intern(name, id, email, roleInfo);
@@ -72,7 +71,7 @@ function addEmployee() {
                 team.push(newEmployee);
 
                 if (moreEmployees) {
-                    addEmployee();
+                    createTeam();
 
                 } else {
                     renderHtml();
@@ -86,17 +85,17 @@ function addEmployee() {
 function renderHtml() {
     const newHtml = render(team);
     if (!fs.existsSync(OUTPUT_DIR)) {
-        fs.mkdirSync(OUTPUT_DIR)
+        fs.mkdirSync(OUTPUT_DIR);
     }
-    fs.writeFile(outputPath, newHtml, function (err) {
+    fs.writeFile(outputPath, newHtml, (err) => {
         if (err) {
-            console.log(err)
+            throw(err);
         }
     });
 };
 
 function init() {
-    addEmployee();
+    createTeam();
 }
 
 init();
