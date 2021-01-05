@@ -17,7 +17,7 @@
    
   ## Installation
   1.) Clone the repo from github 2.) Pull up the project in your file directory 3.) Type "npm i" into the console to install the required modules 4.) Type "node app.js" to run the program 5.) Follow the prompts until team.html is generated in the output folder.
-    ![Example HTML](Assets/Demo.gif)
+    ![Walkthrough](Assets/Demo.gif)
   ## Usage
   You will need node installed for this project. Jest is also needed for testing.
   ## Credits
